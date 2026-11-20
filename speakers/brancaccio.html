@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>San Joaquin Valley Town Hall</title>
+	<link rel="icon" href="../images/favicon.ico">
+	<link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+	<header>
+		<img src="../images/town_hall_logo.gif" alt="Town Hall logo">
+		<h2>San Joaquin Valley Town Hall</h2>
+		<h3>Celebrating our <em class="large">75</em><sup>th</sup> Year</h3>
+	</header>
+
+	<nav class="navbar" aria-label="Main navigation">
+    <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation menu">
+    <label for="menu-toggle" class="menu-btn" aria-controls="main-menu">
+        <span class="menu-icon" aria-hidden="true"></span>
+        <span class="menu-label">Menu</span>
+    </label>
+    <ul class="menu" id="main-menu">
+        <li><a class=""  href="../index.html">Home</a></li>
+        <li class="has-submenu">
+            <a href="#" aria-expanded="false">Speakers</a>
+            <ul class="submenu">
+                <li><a href="brancaccio.html">David Brancaccio</a></li>
+                <li><a href="sorkin.html">Andrew Ross Sorkin</a></li>
+                <li><a href="chua.html">Amy Chua</a></li>
+                <li><a href="sampson.html">Scott Sampson</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Luncheons</a></li>
+        <li><a href="#">Tickets</a></li>
+        <li class="has-submenu">
+            <a href="#" aria-expanded="false">About Us</a>
+            <ul class="submenu">
+                <li><a href="#">Our History</a></li>
+                <li><a href="#">Board of Directors</a></li>
+                <li><a href="#">Past Speakers</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+	<main>
+		<section>
+			<h1>David Brancaccio</h1>
+			<h2>This page is under construction.</h2>
+		</section>
+	</main>
+<footer>
+		<p>&copy; 2026 Aditya Raj Sharma, San Joaquin Valley Town Hall, Fresno, CA 93755. A11 due date: November 20, 2026.</p>
+	</footer>
+<script>
+    // Toggle mobile submenus on tap; desktop menus also work with hover/focus.
+    document.querySelectorAll(".has-submenu > a").forEach(function (link) {
+        link.addEventListener("click", function (event) {
+            if (window.matchMedia("(max-width: 767px)").matches) {
+                event.preventDefault();
+                const parent = link.parentElement;
+                const isOpen = parent.classList.toggle("submenu-open");
+                link.setAttribute("aria-expanded", String(isOpen));
+            } else {
+                event.preventDefault();
+            }
+        });
+    });
+
+    // Close the mobile menu when returning to the desktop layout.
+    const menuToggle = document.getElementById("menu-toggle");
+    window.addEventListener("resize", function () {
+        if (window.matchMedia("(min-width: 768px)").matches) {
+            menuToggle.checked = false;
+            document.querySelectorAll(".submenu-open").forEach(function (item) {
+                item.classList.remove("submenu-open");
+                const parentLink = item.querySelector(":scope > a");
+                if (parentLink) parentLink.setAttribute("aria-expanded", "false");
+            });
+        }
+    });
+</script>
+</body>
+
+</html>

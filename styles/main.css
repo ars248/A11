@@ -1,0 +1,357 @@
+/* A11 - Town Hall Responsive Design & Media Queries
+   Mobile-first layout based on Chapter 8, Exercise 8-2. */
+
+/* Custom properties */
+:root {
+    --accent-color: #800000;
+    --gradient-color: #f6bb73;
+    --menu-light: #fff;
+    --menu-mid: antiquewhite;
+    --menu-dark: #222;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Default page styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: calc(15px + .2vw);
+    width: min(96%, 1024px);
+    line-height: 1.5;
+    margin: 0 auto;
+    border: 2px solid var(--accent-color);
+}
+
+h1, h2, h3, p, ul {
+    padding: .25em 0;
+}
+
+a:hover, a:focus {
+    font-style: italic;
+    color: var(--accent-color);
+}
+
+h1 { font-size: 150%; }
+h2 { font-size: 130%; color: var(--accent-color); }
+h3 { font-size: 105%; }
+ul { margin-left: 2em; }
+
+/* Header: mobile-first (centered, no logo on small screens) */
+header {
+    line-height: 1.2;
+    text-align: center;
+    border-bottom: 2px solid var(--accent-color);
+    background-image: linear-gradient(
+        30deg, var(--gradient-color) 0%, white 30%, white 65%, var(--gradient-color) 100%);
+    padding: .5em;
+}
+
+header h2 {
+    font-size: 145%;
+    padding: .25em 0;
+}
+
+header h3 {
+    font-size: 110%;
+    font-style: italic;
+    padding-bottom: .5em;
+}
+
+header img {
+    display: none;
+}
+
+.large { font-size: 125%; }
+
+/* Main content: one column on small screens.
+   column-reverse puts the mission/section before the speaker aside. */
+main {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 0 1em 1em;
+}
+
+main blockquote {
+    font-style: italic;
+    padding-left: 1em;
+}
+
+main h3 + img {
+    width: clamp(40px, 50%, 75px);
+    border: 4px double var(--accent-color);
+    border-radius: 10px;
+}
+
+/* Section and aside become columns at the large-screen breakpoint */
+section {
+    padding: 0 .5em .75em;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+section img {
+    width: clamp(100px, 45%, 250px);
+    max-width: 100%;
+    height: auto;
+    float: right;
+    margin: 0 1em .25em;
+}
+
+aside {
+    padding: .5em .5em 0 0;
+}
+
+/* Footer */
+footer {
+    background-color: var(--accent-color);
+}
+
+footer p {
+    text-align: center;
+    color: white;
+    padding: 1em .5em;
+}
+
+/* Featured speaker and speaker pages */
+.featured {
+    border-top: 2px solid var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding: .5em 0 1em;
+}
+
+.speaker h1 { color: var(--accent-color); }
+.speaker h2 { color: black; }
+.speaker p { padding: .5em 0; }
+
+.ticket-list { list-style-type: circle; }
+.video-link { font-weight: bold; }
+
+/* Navigation: mobile-first hamburger menu */
+.navbar {
+    position: relative;
+    background-color: var(--accent-color);
+    z-index: 10;
+}
+
+.menu-toggle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+.menu-btn {
+    display: block;
+    color: var(--menu-light);
+    padding: .65em 1em;
+    cursor: pointer;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.menu-icon::before {
+    content: "\2630";
+    font-size: 1.4em;
+    margin-right: .5em;
+    vertical-align: middle;
+}
+
+.menu-toggle:checked + .menu-btn .menu-icon::before {
+    content: "\00D7";
+}
+
+.menu-btn:hover,
+.menu-btn:focus {
+    background-color: var(--menu-mid);
+    color: var(--menu-dark);
+}
+
+.menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 40%;
+    min-width: 180px;
+    max-width: 300px;
+    background-color: var(--accent-color);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-toggle:checked ~ .menu {
+    display: block;
+}
+
+.menu > li {
+    position: relative;
+    text-align: left;
+}
+
+.navbar a {
+    display: block;
+    padding: .7em 1em;
+    margin: 0 2px 2px 0;
+    text-decoration: none;
+    color: var(--menu-light);
+}
+
+.navbar a:link,
+.navbar a:visited {
+    color: var(--menu-light);
+}
+
+.navbar a:hover,
+.navbar a:focus,
+.navbar a.current {
+    background-color: var(--menu-mid);
+    color: var(--menu-dark);
+}
+
+.has-submenu > a::after {
+    content: "\25B6";
+    font-size: .75em;
+    margin-left: .6em;
+}
+
+.submenu {
+    display: none;
+    position: static;
+    width: 100%;
+    background-color: var(--accent-color);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.has-submenu:hover > .submenu,
+.has-submenu:focus-within > .submenu,
+.has-submenu.submenu-open > .submenu {
+    display: block;
+}
+
+.submenu > li a {
+    margin: 0 2px 2px;
+    padding-left: 1.5em;
+}
+
+.submenu > li a::after {
+    content: none;
+}
+
+/* Desktop / wide viewport breakpoint */
+@media (min-width: 768px) {
+    body {
+        width: min(80%, 1024px);
+    }
+
+    header {
+        text-align: left;
+        padding: 0;
+    }
+
+    header h2 {
+        font-size: 175%;
+        padding: .5em 0 0;
+    }
+
+    header h3 {
+        font-size: 130%;
+        padding-bottom: 1em;
+    }
+
+    header img {
+        display: block;
+        width: clamp(40px, 15%, 80px);
+        float: left;
+        margin: .75em 1em;
+    }
+
+    main {
+        flex-direction: row;
+    }
+
+    section {
+        flex-basis: 75%;
+        padding-left: .5em;
+        border-bottom: none;
+    }
+
+    aside {
+        flex-basis: 25%;
+        padding-right: .5em;
+    }
+
+    .menu-btn {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+
+    .menu {
+        display: flex;
+        flex-wrap: nowrap;
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+    }
+
+    .menu > li {
+        flex: 1 1 20%;
+        text-align: center;
+    }
+
+    .navbar a {
+        padding: 1em;
+        margin: 0 2px 2px 0;
+    }
+
+    .menu > li:first-child > a {
+        margin-left: 0;
+    }
+
+    .menu > li:last-child > a {
+        margin-right: 0;
+    }
+
+    .has-submenu > a::after {
+        content: "\25BC";
+        font-size: .7em;
+        margin-left: .35em;
+    }
+
+    .submenu {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        width: auto;
+        min-width: 100%;
+        z-index: 20;
+    }
+
+    .submenu > li a {
+        padding-left: 1em;
+        text-align: center;
+        white-space: nowrap;
+    }
+}
+
+/* Slightly wider header breakpoint for comfortable title/logo alignment */
+@media (min-width: 900px) {
+    header h2 {
+        font-size: 175%;
+    }
+}
